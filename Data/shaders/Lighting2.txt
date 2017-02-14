@@ -1,0 +1,36 @@
+ßF
+
+//uniform sampler2D Texture1;
+
+varying vec3 lightDir;
+varying vec3 normal;
+
+attribute vec3 tangent;
+
+void main() {
+	lightDir = normalize(lightDir);
+	normal = normalize( normal );
+	
+	gl_FragColor =  vec4(1.0) * max(dot(normal, lightDir), 0.0);
+	gl_FragColor.w = 1.0;
+}
+
+
+ßV
+
+uniform vec3 lightPos;
+
+varying vec3 lightDir;
+varying vec3 normal;
+
+attribute vec3 tangent;
+
+void main() {
+	gl_Position = ftransform();
+	gl_TexCoord[0].st = gl_MultiTexCoord0.st;
+
+	vec3 eye_vec = ( gl_ModelViewMatrix * gl_Vertex).xyz;
+	lightDir = vec3(gl_ModelViewMatrix * vec4(lightPos,1.0))- eye_vec;
+
+	normal = gl_NormalMatrix * gl_Normal;
+}

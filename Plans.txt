@@ -1,0 +1,60 @@
+Plans for 2007
+
+ - Complete frustum culling 
+	- Add QuadTree to Heightmap class
+	- AABB for 3DS models [DONE]
+
+ - Complete .3DS model file loader
+	- Find the material chunk [DONE]
+		- Texture the model [DONE]
+			- Normal texture [DONE]
+			- Normalmap [DONE]
+			- Parallax map [-]
+			- Mask [-]
+		- Apply materials found in the material chunk [DONE]
+		- Apply material chunks to each object [DONE]
+	- Read the keyframer chunk from the model file 
+		- and animate the model
+
+ - Collision Detection and response
+	- Do AABB collision with response
+	- Do triangular mesh collision 
+		- With response
+
+
+
+ - Do something with shadows
+	- Do something with soft shadows
+ - High Dynamic Range lighting
+
+ - Learn to use Open Audio Library ( OpenAL )
+ - Snowstorm
+ - Eskimo jacket
+ - Playerview class
+ - Grass (terrain)
+ - Fur (models)
+
+
+
+[Done]:
+ - FULLY REWRITE CAMERA CLASS
+ - Write a .DDS texture loader
+ - Glow
+ - Apply VertexBufferObjects to nearly all of the models
+ - Do Bump Mapping
+ - Do Parallax Mapping
+
+
+
+ Anti-aliasing steps:
+ 
+ 1. Create the window
+ 2. ChoosePixelFormat
+ 3. SetPixelFormat
+ 4. Initialize multisampling
+ 5. Destroy the window
+ 6. Create the window
+ 7. wglChoosePixelFormatARB
+ 8. SetPixelFormat
+ 9. ShowWindow
+ 

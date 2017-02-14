@@ -1,0 +1,56 @@
+ßF
+
+uniform sampler2D Texture1;
+uniform sampler2D Normalmap;
+
+attribute vec3 tangent;
+
+varying vec3 lightDir;
+varying vec3 viewDir;
+
+void main() {
+	lightDir = normalize(lightDir);
+	viewDir  = normalize(viewDir);
+	
+	float h = texture2D(Normalmap, gl_TexCoord[0].st).w * 0.04 - 0.02;
+	vec2 TC = gl_TexCoord[0].st;// + (h * -viewDir.yx) * texture2D(Normalmap, gl_TexCoord[0].st).z;
+	
+	vec3 normal = texture2D(Normalmap, TC).xyz * 4.0 - 2.0;
+	
+	float diffuse = clamp( dot( lightDir, normal ), 0.0, 1.0 );
+	gl_FragColor = diffuse * texture2D(Texture1, TC );
+}
+
+
+ßV
+
+uniform vec3 lightPos;
+uniform vec3 viewPos;
+
+attribute vec3 tangent;
+
+varying vec3 lightDir;
+varying vec3 viewDir;
+
+void main() {
+	gl_Position = ftransform();
+	gl_TexCoord[0].st = gl_MultiTexCoord0.st;
+
+
+	vec3 eye_vec = ( gl_Vertex).xyz;
+	vec3 viewDIR  =  viewPos- eye_vec;
+	vec3 lightDIR = lightPos- eye_vec;
+	
+	vec3 normal = normalize(  gl_Normal );
+		 tangent = normalize(  tangent );
+	vec3 bitangent = cross( normal, tangent );
+	
+	lightDir.x = dot( lightDIR, tangent );
+	lightDir.y = dot( lightDIR, bitangent );
+	lightDir.z = dot( lightDIR, normal );
+
+	viewDir.x = dot( viewDIR, tangent );
+	viewDir.y = dot( viewDIR, bitangent );
+	viewDir.z = dot( viewDIR, normal );
+	
+}
